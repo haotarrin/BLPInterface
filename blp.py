@@ -172,7 +172,10 @@ class BLPInterface:
                     for v in [fld.getValueAsElement(i) for i in range(fld.numValues())]:
                         s = Series()
                         for d in [v.getElement(i) for i in range(v.numElements())]:
-                            s[str(d.name())] = d.getValue()
+                            if not d.isNull():
+                                s[str(d.name())] = d.getValue()
+                            else: 
+                                pass
                         df = df.append(s, ignore_index=True)
 
                 if not df.empty:
